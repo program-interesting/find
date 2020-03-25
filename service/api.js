@@ -37,11 +37,19 @@ exp.use(bodyParser.text());
 require('../service/select.js');
 //按照标签：查询
 exp.get('/select/:tag?', function(req, res){
-    if(!req.body) return res.sendStatus(400);
+    //为空返回
+    if(Object.keys(req.params).length === 0) {
+        return res.send(JSON.stringify(['400']));
+    }
     var tag = req.params.tag;
     //add 模糊查询
     selectSql(tag, res, filebuffer, config);
 });
+//所有标签：查询
+exp.get('/all/tags', function(req, res){
+    selectSql(false, res, filebuffer, config, true);
+});
+
 /**
  * 载入：插入SQL方法
  */
