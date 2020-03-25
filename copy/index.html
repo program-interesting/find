@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Find寻找自己</title>
+    <script src="https://cdn.bootcss.com/jquery/1.8.2/jquery.js"></script>
+    <style>
+        .nav {
+            background-color: black;
+            display: inline-block;
+            padding: 10px;
+            width: 100%;
+        }
+
+        .nav a {
+            color: #e7040f;
+            font-weight: bold;
+            padding: 10px;
+        }
+
+        .nav img {
+            vertical-align: middle;
+        }
+
+        .select .start {
+            width: auto;
+            height: 900px;
+            background-color: #000000;
+        }
+
+        .select .part {
+            display: none;
+        }
+
+        .select .part .ch {
+            width: auto;
+            height: 900px;
+            background-color: #333333;
+        }
+
+        .select .part .part-float {
+            width: 600px;
+            height: 333px;
+            float: left;
+            margin-top: 230px;
+            margin-left: 300px;
+            background-color: #333333;
+        }
+
+        .select .part .part-float h3 {
+            float: right;
+        }
+
+        .select .part .ch .ch-left {
+            width: 333px;
+            height: 100%;
+            float: left;
+            background-color: #000000;
+        }
+
+        .select .part .ch .ch-right {
+            width: 339px;
+            height: 100%;
+            float: right;
+            background-color: #000000;
+        }
+
+        .select .part .sh {
+            width: auto;
+            height: 900px;
+            background-color: #0d5aa7;
+        }
+
+        .select .part .jh {
+            width: auto;
+            height: 900px;
+            background-color: #5555aa;
+        }
+    </style>
+</head>
+<body>
+<div class="nav">
+    <img  id="nav_img" onclick="navImgChange();" src="./imgs/find.jpg" >
+    <div class="nav_con" style="display: inline-block">
+        <a>程有趣</a>
+        <a>诗有情</a>
+        <a>今日F榜</a>
+    </div>
+</div>
+<div class="select">
+    <div class="start"></div>
+    <div class="part">
+            <div class="ch">
+                <div class="ch-left"></div>
+                <div class="part-float" style="color: white;font-size: larger">
+                    <h1>追梦第38天，好 棒 哟  !</h1>
+                    <h3>by - 小 f</h3>
+                </div>
+                <div class="ch-right"></div>
+            </div>
+    </div>
+    <div class="part">
+        <a><div class="sh"></div></a>
+    </div>
+    <div class="part">
+        <a><div class="jh"></div></a>
+    </div>
+
+    <div class="hide" style="display: none" id=""></div>
+
+</div>
+
+<script>
+    $('.nav_con a').on('click', function () {
+        $('.select .start').hide();
+        $('.select .part').hide();
+        var index = $(this).index();
+        $('.select .part').eq(index).show();
+        $('.select .hide').text(index);
+    })
+</script>
+<script type="text/javascript">
+    function navImgChange() {
+        var index = $('.select .hide').text();
+        $('.select .part').eq(index).hide();
+        $('.select .start').show();
+    }
+</script>
+
+</body>
+</html>

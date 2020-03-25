@@ -14,5 +14,10 @@
   "license": "ISC",
   "devDependencies": {
     "electron": "^8.2.0"
+  },
+  "dependencies": {
+    "fs": "^0.0.1-security",
+    "node-fs": "^0.1.7",
+    "sql.js": "^1.2.1"
   }
 }
