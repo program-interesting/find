@@ -47,7 +47,11 @@ exp.get('/select/:tag?', function(req, res){
 require('../service/insert.js');
 //按照标签：插入
 exp.post('/insert/tag/content', function(req, res){
-    if(!req.body) return res.sendStatus(400);
+    //为空返回
+    if(Object.keys(req.body).length === 0) {
+        return res.send(JSON.stringify(['400']));
+    }
+    console.log(req.body);
     var tag     = req.body.tag;
     var content = req.body.content;
     insertSql(tag, content, res, fs, filebuffer, config);
