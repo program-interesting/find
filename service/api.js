@@ -39,6 +39,7 @@ require('../service/select.js');
 exp.get('/select/:tag?', function(req, res){
     if(!req.body) return res.sendStatus(400);
     var tag = req.params.tag;
+    //add 模糊查询
     selectSql(tag, res, filebuffer, config);
 });
 /**
