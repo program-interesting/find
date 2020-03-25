@@ -16,6 +16,7 @@
     "electron": "^8.2.0"
   },
   "dependencies": {
+    "express": "^4.17.1",
     "fs": "^0.0.1-security",
     "node-fs": "^0.1.7",
     "sql.js": "^1.2.1"
