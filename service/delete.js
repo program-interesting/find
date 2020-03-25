@@ -1,6 +1,6 @@
 require('./static/js/sql-wasm.js');
 var fs = require("fs");
-var filebuffer = fs.readFileSync('d.sqlite');
+var filebuffer = fs.readFileSync('find.sqlite');
 var config = {
     // 指定加载sql-wasm.wasm文件的位置
     locateFile: filename => `./static/js/${filename}`
@@ -15,6 +15,6 @@ initSqlJs(config).then(SQL => {
     // 注意：上面的增、改、删都只是对载入内存中
     var data = db.export();
     var buffer = Buffer.from(data, 'binary');
-    fs.writeFileSync("d.sqlite", buffer);
+    fs.writeFileSync("find.sqlite", buffer);
     document.querySelector('#result').innerHTML = "SQLite database changed.";
 });

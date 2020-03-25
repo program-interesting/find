@@ -15,7 +15,7 @@ initSqlJs(config).then(SQL => {
     // 由于安全性和可用性问题，不建议使用Buffer()和new Buffer()构造函数
     var buffer = Buffer.from(data, 'binary');
     // 被创建数据库名称
-    var filename = "d.sqlite";
+    var filename = "find.sqlite";
     fs.writeFileSync(filename, buffer);
     document.querySelector('#result').innerHTML = filename + "Created successfully.";
 });
