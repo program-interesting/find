@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Find</title>
+    <link rel="stylesheet" href="css/index.css">
+</head>
+<body>
+<div class="box" >
+    <a class="addBtn" href="add.html">增加新片段</a>
+
+    <ul class=" tags" id="tags">
+
+    </ul>
+    <h2 class="head">
+        <span>编号</span>
+        <span>标签</span>
+        <span>代码片段</span>
+        <span>操作</span>
+    </h2>
+    <ul class="list" id="list">
+
+    </ul>
+
+</div>
+<script src="https://cdn.bootcss.com/jquery/1.8.2/jquery.js"></script>
+<script src="../service/config.js"></script>
+<script>
+    //获取客户信息，完成页面的数据绑定
+    var customeModule=(function(){
+        //Bind html
+        var documentList=document.getElementById('list');
+        var tagsList=document.getElementById('tags');
+        function bindHtml(data, tags){
+            var str='<li>';
+            for (var j = 0; j < tags.length; j++) {
+                var curTag=tags[j];
+                str+=`<span>${curTag}</span>`
+            }
+            str+='</li>';
+            tagsList.innerHTML=str;
+            str='';
+            for (var i = 0; i < data.length; i++) {
+                var curData=data[i];
+                str+=`<li>
+                        <span>${curData[0]}</span>
+                        <span>${curData[1]}</span>
+                        <span>${curData[2]}</span>
+                        <span>
+                            <a href="add.html?id=${curData[0]}">修改</a>
+                            <a href="javascript:;" cusId="${curData[0]}">删除</a>
+                        </span>
+                     </li>`
+            }
+            documentList.innerHTML=str;
+        }
+
+        function removeCustomer(){
+            documentList.onclick=function(e){
+                var e=e||window.event,
+                     tar= e.target|| e.srcElement,
+                        tarTag=tar.tagName.toUpperCase();
+                //删除操作
+                if(tarTag==='A'&&tar.innerHTML==='删除'){
+                //确认提示框
+                    var customId=tar.getAttribute('cusId'),
+                            flag=window.confirm('确定要删除编号为['+customId+']的客户吗?');
+                    if(flag){
+                        $.ajax({
+                            url:'/removeInfo?id='+customId,
+                            success:function(data){
+                                if(data&&data.code==0){
+                                    documentList.removeChild(tar.parentNode.parentNode);
+                                    return;
+                                }
+                                alert(data.msg);
+                            }
+                        })
+                    }
+
+                }
+            }
+        }
+
+        function twoInit(){
+            tagsList.onclick=function(e){
+                var e=e||window.event,
+                    tar= e.target|| e.srcElement,
+                    tarTag=tar.tagName.toUpperCase();
+                //删除操作
+                if(tarTag==='SPAN' && tar.innerHTML){
+                    init(tar.innerHTML);
+                }
+            }
+        }
+        //send ajax get data
+        function init(select_name='g'){
+            //获取tags
+            $.ajax({
+                url: apiConfig.host + '/all/tags',
+                success:function(tags){
+                    console.log(tags);
+                    if(tags && tags.code==0){
+                        var tags=tags['data'];
+                        //绑定数据
+                        $.ajax({
+                            url: apiConfig.host + '/select/'+select_name,
+                            success:function(data){
+                                console.log(data);
+                                if(data && data.code==0){
+                                    var data=data['data'];
+                                    //绑定数据
+                                    bindHtml(data, tags);
+                                    //取消
+                                    removeCustomer();
+                                    //重新初始化
+                                    twoInit();
+                                }
+                            }
+                        })
+                    }
+                }
+            });
+        }
+        return{
+            init:init
+        }
+    })();
+    customeModule.init();
+</script>
+</body>
+</html>

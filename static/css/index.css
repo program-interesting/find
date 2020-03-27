@@ -1,0 +1,106 @@
+*{
+    margin:0;
+    padding:0;
+
+}
+li{
+    list-style: none;
+}
+.box{
+    margin:50px 10px;
+    font-family:Arial,"PingFang SC","Hiragino Sans GB",STHeiti,"Microsoft YaHei","WenQuanYi Micro Hei",sans-serif ;
+    font-weight: 700;
+    border:10px solid #dadada;
+    background-color: #b1d044ed;
+}
+.addBtn{
+    color:#179a6e;
+    font-size:18px;
+
+}
+.head{
+    width:100%;
+    height:30px;
+    font-size:16px;
+    line-height:30px;
+    background-color: #179a6e;
+    overflow: hidden;
+}
+.head span{
+    display: inline-block;
+    float:left;
+    width:20%;
+    text-align: center;
+    color:#fff;
+    position: relative;
+}
+.head span:after{
+    content:'';
+    position:absolute;
+    width:1px;
+    height:30px;
+    background-color: #fff;
+    right:0;
+    top:0;
+}
+.tags{
+    width:100%;
+
+}
+.tags li{
+    width:100%;
+    line-height: 36px;
+    overflow: hidden;
+    border-bottom:1px solid #ddd;
+    cursor: pointer;
+}
+.tags li:hover{
+    background-color: #fafafa;
+}
+.tags li span{
+    display: inline-block;
+    float:left;
+    text-align: center;
+    width: auto;
+    padding-right: 10px;
+    padding-left: 10px;
+}
+.list{
+    width:100%;
+
+}
+.list li{
+    width:100%;
+    line-height: 36px;
+    overflow: hidden;
+    border-bottom:1px solid #ddd;
+    cursor: pointer;
+}
+.list li:hover{
+    background-color: #fafafa;
+}
+.list li span{
+    display: inline-block;
+    width:20%;
+    float:left;
+    text-align: center;
+    position:relative;
+
+}
+.list li span:after {
+    content: '';
+    position: absolute;
+    width: 1px;
+    background-color: #fff;
+    right: 0;
+    top: 0;
+}
+.head  span:first-child,.list li span:first-child{
+    width:5%;
+}
+.head  span:nth-child(2),.list li span:nth-child(2){
+    width:5%;
+}
+.head  span:nth-child(3),.list li span:nth-child(3){
+    width:70%;
+}

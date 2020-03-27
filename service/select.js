@@ -20,6 +20,6 @@ selectSql = function (tag, res, filebuffer, config, isAll=false) {
             var back_res = result[0] ? result[0].values : [];
         }
         console.log(JSON.stringify(back_res));
-        res.send(JSON.stringify(back_res));
+        res.send({'code':0, 'msg':'ok', 'data':back_res});
     });
 };

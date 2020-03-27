@@ -39,7 +39,7 @@ require('../service/select.js');
 exp.get('/select/:tag?', function(req, res){
     //为空返回
     if(Object.keys(req.params).length === 0) {
-        return res.send(JSON.stringify(['400']));
+        return res.send({'code':400, 'msg':'not'});
     }
     var tag = req.params.tag;
     //add 模糊查询
@@ -58,29 +58,29 @@ require('../service/insert.js');
 exp.post('/insert/tag/content', function(req, res){
     //为空返回
     if(Object.keys(req.body).length === 0) {
-        return res.send(JSON.stringify(['400']));
+        return res.send({'code':400, 'msg':'not'});
     }
     console.log(req.body);
     var tag     = req.body.tag;
     var content = req.body.content;
     insertSql(tag, content, res, fs, filebuffer, config);
-    res.send(JSON.stringify(['ok']));
+    res.send({'code':0, 'msg':'ok'});
 });
 
 //退出登录
 exp.get('/logout', function (req, res) {
-    res.send('ok, it logout!');
+    res.send({'code':0, 'msg':'ok'});
 });
 
 //成功跳转
-exp.get('/success', (req, res)=>res.send('you are success!'));
+exp.get('/success', (req, res)=>res.send({'code':0, 'msg':'ok'}));
 
 //你好世界
 exp.get('/', function (req, res) {
-    res.send('Hello World!');
+    res.send({'code':0, 'msg':'ok'});
 });
 
 //监听9898端口
 exp.listen(9898, () => {
-    console.log('exp listening on port 9898!');
+    console.log({'code':0, 'msg':'ok'});
 });

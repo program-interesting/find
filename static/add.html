@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>增加用户</title>
+    <link rel="stylesheet" href="css/index.css">
+    <style>
+        .box2{
+            width:800px;
+            margin:50px auto;
+            font-family:Arial,"PingFang SC","Hiragino Sans GB",STHeiti,"Microsoft YaHei","WenQuanYi Micro Hei",sans-serif ;
+            font-weight: 700;
+            border:10px solid #dadada;
+            text-align: center;
+            padding:10px;
+            background-color: #b1d044ed;
+
+        }
+        .box2 ul{
+            width:100%;
+            overflow: hidden;
+        }
+        .box2 ul li{
+            width:100%;
+            height:128px;
+            float:left;
+            padding:5px;
+            text-align: left;
+        }
+        .box2 .type{
+            display: inline-block;
+            width:60px;
+            height:36px;
+            line-height: 36px;
+
+        }
+        .inputInfo{
+            width:600px;
+            padding:0 10px;
+            height:128px;
+            border:1px solid #ddd;
+        }
+        #userName{
+            width:88px;
+            padding:0 10px;
+            height:32px;
+            border:1px solid #ddd;
+        }
+        .textInfo{
+            height: 200px;
+            background-color: #fff;
+            width: 540px;
+            vertical-align: middle;
+            overflow-y: auto;
+        }
+        .submit{
+            display: inline-block;
+            margin:15px auto 0;
+            width:100px;
+            height:36px;
+            background-color: #179a6e;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="box2">
+        <ul>
+            <li>
+                <span class="type">标签:</span>
+                <input type="text"  id="userName" class="inputInfo">
+            </li>
+            <li>
+                <span class="type" >片段:</span>
+<!--                <input type="text" class="inputInfo" >-->
+                <textarea class="textInfo" id="userAddress"></textarea>
+            </li>
+        </ul>
+        <button class="submit" id="submit">提交</button>
+    </div>
+</body>
+<script src="https://cdn.bootcss.com/jquery/1.8.2/jquery.js"></script>
+<script src="../service/config.js"></script>
+<script>
+    //获取URL地址栏的参数值
+    String.prototype.queryUrlParameter=function(){
+        var obj={};
+        var reg=/([^?=&#]+)=([^?=&#]+)/g;
+        this.replace(reg,function(){
+            var key=arguments[1];
+            var value=arguments[2];
+            obj[key]=value;
+        })
+        return obj;
+    }
+    var userName=document.getElementById('userName');
+    var userAddress=document.getElementById('userAddress');
+    var submit=document.getElementById('submit');
+    //判断修改还是增加：如果url后面传递了ID值就是修改，否则就是增加
+    var urlBoj= window.location.href.queryUrlParameter(),
+    customId=urlBoj['id'],
+   isFlag=typeof customId==='undefined'?false:true; //true->修改 false->增加
+    //如果是修改，首先需要把对应客户的信息获取到，并且增加到对应的文本框中。
+    if(isFlag){
+        $.ajax({
+            url:'/getInfo?id='+customId,
+            success:function(data){
+                if(data&&data.code==0){
+                    var result=data['data'];
+                    userName.value=result['name'];
+                    userAddress.value=result['address'];
+                }
+            }
+        })
+    }
+    //点击提交按钮1.增加
+    submit.onclick=function(){
+        var obj={
+            tag:userName.value,
+            content:userAddress.value
+        };
+        //add send ajax
+        $.ajax({
+            url: apiConfig.host + '/insert/tag/content',
+            type:'POST',
+            data:obj,
+            success:function(data){
+                if(data&&data.code==0){
+                    //成功后跳转回首页
+                    window.location.href='index.html'
+                }
+                alert(data.msg);
+            }
+        });
+    }
+</script>
+</html>
