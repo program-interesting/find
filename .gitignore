@@ -1,3 +1,2 @@
 .idea
-find.sqlite
-find*
+*.sqlite
